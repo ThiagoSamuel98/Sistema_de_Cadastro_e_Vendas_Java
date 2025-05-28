@@ -1,32 +1,35 @@
-// Define a classe Cliente
+// Classe Cliente representa um comprador com CPF validado
+// Declaração da classe Cliente com atributos nome e CPF
 public class Cliente {
-    // Atributos privados que representam os dados do cliente
+    // Atributo que armazena o nome do cliente
     private String nome;
+    // Atributo que armazena o CPF do cliente
     private String cpf;
 
-    // Construtor que inicializa os atributos nome e cpf
+    // Construtor que inicializa o cliente com nome e CPF
     public Cliente(String nome, String cpf) {
-        this.nome = nome; // Define o nome do cliente
-        this.cpf = cpf;   // Define o CPF do cliente
+        if (!cpf.matches("\\d{11}")) {
+            throw new IllegalArgumentException("CPF deve conter exatamente 11 dígitos numéricos.");
+        }
+        // Atribui o valor do parâmetro nome ao atributo nome
+        this.nome = nome;
+        // Atribui o valor do parâmetro cpf ao atributo cpf
+        this.cpf = cpf;
     }
 
-    // Método getter para obter o nome do cliente
+    // Método getter que retorna o nome do cliente
     public String getNome() {
         return nome;
     }
 
-    // Método setter para alterar o nome do cliente
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    // Método getter para obter o CPF do cliente
+    // Método getter que retorna o CPF do cliente
     public String getCpf() {
         return cpf;
     }
 
-    // Método setter para alterar o CPF do cliente
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    @Override
+    // Método que retorna uma representação textual do cliente
+    public String toString() {
+        return "Nome: " + nome + " | CPF: " + cpf;
     }
 }

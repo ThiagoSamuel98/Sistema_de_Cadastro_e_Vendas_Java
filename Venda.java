@@ -1,40 +1,51 @@
-// Define a classe Venda
+// Importa a classe ArrayList da biblioteca java.util para manipulação de listas
+import java.util.ArrayList;
+
+// Define a classe Venda que representa uma venda realizada por um cliente
 public class Venda {
-    // Atributos privados: cliente e produto relacionados à venda
-    private Cliente cliente;
-    private Produto produto;
+    // Atributo que representa o cliente que realizou a venda
+    private Cliente cliente; // Cliente associado à venda
 
-    // Construtor da classe que recebe o cliente e o produto vendidos
-    public Venda(Cliente cliente, Produto produto) {
-        this.cliente = cliente;   // Atribui o cliente à venda
-        this.produto = produto;   // Atribui o produto à venda
-    }
+    // Lista de produtos incluídos na venda
+    private ArrayList<Produto> produtos = new ArrayList<>(); // Lista de produtos da venda
 
-    // Método getter para obter o cliente da venda
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    // Método setter para alterar o cliente da venda
-    public void setCliente(Cliente cliente) {
+    // Construtor da classe Venda que recebe um cliente como parâmetro
+    public Venda(Cliente cliente) {
+        // Atribui o cliente passado ao atributo da classe
         this.cliente = cliente;
     }
 
-    // Método getter para obter o produto da venda
-    public Produto getProduto() {
-        return produto;
+    // Método público para adicionar um produto à lista de produtos da venda
+    public void adicionarProduto(Produto produto) {
+        // Adiciona o produto na lista de produtos da venda
+        produtos.add(produto);
     }
 
-    // Método setter para alterar o produto da venda
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    // Método que calcula o valor total da venda
+    public double calcularTotal() {
+        // Inicializa o total com zero
+        double total = 0;
+
+        // Percorre todos os produtos na lista de produtos
+        for (Produto p : produtos) {
+            // Soma o preço de cada produto ao total
+            total += p.getPreco();
+        }
+
+        // Retorna o valor total da venda
+        return total;
     }
 
-    // Sobrescreve o método toString para exibir os dados da venda
-    @Override
+    // Método toString sobrescrito para retornar uma descrição textual da venda
     public String toString() {
-        // Exibe o nome do cliente, CPF e dados do produto
-        return "Cliente: " + cliente.getNome() + " (CPF: " + cliente.getCpf() + ")\n" +
-               "Produto: " + produto;
+        // Cria uma StringBuilder para montar a descrição dos produtos comprados
+        StringBuilder detalhesProdutos = new StringBuilder();
+        for (Produto p : produtos) {
+            // Adiciona o nome e o preço de cada produto
+            detalhesProdutos.append("  - ").append(p.getNome()).append(" (R$ ").append(p.getPreco()).append(")\n");
+        }
+
+        // Retorna uma string contendo o nome do cliente, os produtos comprados e o total da venda formatado
+        return "Cliente: " + cliente.getNome() + "\nProdutos comprados:\n" + detalhesProdutos.toString() + "Total pago: R$ " + calcularTotal();
     }
 }

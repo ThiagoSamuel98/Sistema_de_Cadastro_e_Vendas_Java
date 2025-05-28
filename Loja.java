@@ -1,56 +1,79 @@
-// Importa a classe ArrayList da biblioteca util para usar listas dinâmicas
+// Importa a classe ArrayList para armazenar listas
 import java.util.ArrayList;
 
-// Define a classe Loja
+// Classe Loja gerencia clientes, produtos e vendas
 public class Loja {
-    // Lista de produtos disponíveis na loja
-    private ArrayList<Produto> produtos;
-    
-    // Lista de vendas realizadas pela loja
-    private ArrayList<Venda> vendas;
+    // Lista que armazena os clientes cadastrados
+    private ArrayList<Cliente> clientes = new ArrayList<>();
+    // Lista que armazena os produtos cadastrados
+    private ArrayList<Produto> produtos = new ArrayList<>();
+    // Lista que armazena as vendas realizadas
+    private ArrayList<Venda> vendas = new ArrayList<>();
 
-    // Construtor da loja que inicializa as listas de produtos e vendas
-    public Loja() {
-        produtos = new ArrayList<>();  // Inicializa a lista de produtos
-        vendas = new ArrayList<>();    // Inicializa a lista de vendas
+    // Método que adiciona um novo cliente à lista de clientes
+    public void cadastrarCliente(Cliente cliente) {
+        // Adiciona o cliente recebido por parâmetro à lista
+        clientes.add(cliente);
     }
 
-    // Método para cadastrar um novo produto na loja
+    // Método que adiciona um novo produto à lista de produtos
     public void cadastrarProduto(Produto produto) {
-        produtos.add(produto);  // Adiciona o produto à lista
+        // Adiciona o produto recebido por parâmetro à lista
+        produtos.add(produto);
     }
 
-    // Método para listar todos os produtos como String
-    public String listarProdutos() {
-        StringBuilder sb = new StringBuilder();
-        for (Produto produto : produtos) {
-            sb.append(produto).append("\n");
+    // Método que busca um cliente pelo nome (ignorando maiúsculas/minúsculas)
+    public Cliente buscarCliente(String nome) {
+        for (Cliente c : clientes) {
+            // Compara o nome do cliente com o nome informado
+            if (c.getNome().equalsIgnoreCase(nome)) return c;
+        }
+        // Retorna null se o cliente não for encontrado
+        return null;
+    }
+
+    // Método que busca um produto pelo nome (ignorando maiúsculas/minúsculas)
+    public Produto buscarProduto(String nome) {
+        for (Produto p : produtos) {
+            // Compara o nome do produto com o nome informado
+            if (p.getNome().equalsIgnoreCase(nome)) return p;
+        }
+        // Retorna null se o produto não for encontrado
+        return null;
+    }
+
+    // Método que registra uma nova venda
+    public void registrarVenda(Venda venda) {
+        // Adiciona a venda recebida por parâmetro à lista de vendas
+        vendas.add(venda);
+    }
+
+    // Método que retorna uma string com a lista de todos os clientes
+    public String listarClientes() {
+        StringBuilder sb = new StringBuilder("Clientes:\n");
+        for (Cliente c : clientes) {
+            // Adiciona cada cliente à string de retorno
+            sb.append(c).append("\n");
         }
         return sb.toString();
     }
 
-    // Método para buscar um produto pelo nome
-    public Produto buscarProduto(String nome) {
-        // Percorre todos os produtos
-        for (Produto produto : produtos) {
-            // Compara ignorando maiúsculas/minúsculas
-            if (produto.getNome().equalsIgnoreCase(nome)) {
-                return produto;  // Retorna o produto se encontrado
-            }
+    // Método que retorna uma string com a lista de todos os produtos
+    public String listarProdutos() {
+        StringBuilder sb = new StringBuilder("Produtos:\n");
+        for (Produto p : produtos) {
+            // Adiciona cada produto à string de retorno
+            sb.append(p).append("\n");
         }
-        return null;  // Retorna null se não encontrar
+        return sb.toString();
     }
 
-    // Método para registrar uma nova venda
-    public void registrarVenda(Venda venda) {
-        vendas.add(venda);  // Adiciona a venda à lista
-    }
-
-    // Método para listar todas as vendas como String
+    // Método que retorna uma string com a lista de todas as vendas
     public String listarVendas() {
-        StringBuilder sb = new StringBuilder();
-        for (Venda venda : vendas) {
-            sb.append(venda).append("\n\n");
+        StringBuilder sb = new StringBuilder("Vendas:\n");
+        for (Venda v : vendas) {
+            // Adiciona cada venda à string de retorno
+            sb.append(v).append("\n\n");
         }
         return sb.toString();
     }
